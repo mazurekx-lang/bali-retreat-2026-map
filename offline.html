@@ -602,8 +602,25 @@ paint:{
 17,5
 ]
 }
-}
-
+},
+{
+  id:"road-labels",
+  type:"symbol",
+  source:"ubud",
+  "source-layer":"roads",
+  filter:["has","name"],
+  layout:{
+    "text-field":["get","name"],
+    "text-size":12,
+    "text-rotation-alignment":"map",
+    "text-allow-overlap":false
+  },
+  paint:{
+    "text-color":"#55483c",
+    "text-halo-color":"#ffffff",
+    "text-halo-width":2
+  }
+},
 ]
 
 }
