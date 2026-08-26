@@ -838,9 +838,18 @@ Object.keys(categories)
 const button=
 document.createElement("button");
 
-button.textContent=
-categories[category]+" "+category;
+const iconFiles = {
+  "Wszystko": "wszystko.png",
+  "Baza": "nasza-baza.png",
+  "Natura": "natura.png",
+  "Świątynie": "swiatynie.png",
+  "Kultura": "kultura.png",
+  "Sztuka": "sztuka.png",
+  "Zakupy": "zakupy.png"
+};
 
+button.innerHTML =
+  `<img src="bali_icons/${iconFiles[category]}" alt="" class="category-icon"> ${category}`;
 if(category===activeCategory)
 button.classList.add("active");
 
