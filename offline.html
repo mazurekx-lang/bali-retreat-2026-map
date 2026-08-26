@@ -839,7 +839,7 @@ const button=
 document.createElement("button");
 
 const iconFiles = {
-  "Wszystko": "wszystko.png",
+  "Wszystko": "mapa.png",
   "Baza": "nasza-baza.png",
   "Natura": "natura.png",
   "Świątynie": "swiatynie.png",
@@ -849,9 +849,7 @@ const iconFiles = {
 };
 
 button.innerHTML =
-  `<img src="bali_icons/${iconFiles[category]}" alt="" class="category-icon"> ${category}`;
-if(category===activeCategory)
-button.classList.add("active");
+  `<img src="bali_icons/${iconFiles[category]}" class="category-icon" alt=""> ${category}`;
 
 button.onclick=()=>{
 
