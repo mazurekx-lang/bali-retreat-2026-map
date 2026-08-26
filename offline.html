@@ -592,10 +592,9 @@ type:"line",
 source:"ubud",
 "source-layer":"roads",
 filter:[
-"in",
-["get","kind"],
-"highway",
-"major_road"
+  "any",
+  ["==", ["get","kind"], "highway"],
+  ["==", ["get","kind"], "major_road"]
 ],
 paint:{
 "line-color":"#d1b98f",
