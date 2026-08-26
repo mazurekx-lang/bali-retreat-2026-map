@@ -868,7 +868,10 @@ const iconFiles = {
   "Sztuka": "sztuka.png",
   "Zakupy": "zakupy.png"
 };
+const iconFile = iconFiles[category];
 
+button.innerHTML =
+  `<img src="bali_icons/${iconFile}" class="category-icon">`;
 
 button.onclick=()=>{
 
