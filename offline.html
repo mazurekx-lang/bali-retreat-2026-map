@@ -885,7 +885,36 @@ addMarkers();
 renderCards();
 
 };
+.addTo(map);
 
+const label = document.createElement("div");
+label.textContent = place.name;
+label.style.position = "absolute";
+label.style.bottom = "48px";
+label.style.left = "50%";
+label.style.transform = "translateX(-50%)";
+label.style.background = "white";
+label.style.padding = "5px 9px";
+label.style.borderRadius = "8px";
+label.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
+label.style.fontSize = "13px";
+label.style.whiteSpace = "nowrap";
+label.style.display = "none";
+label.style.zIndex = "1000";
+
+marker.getElement().appendChild(label);
+
+marker.getElement().addEventListener("mouseenter", () => {
+  label.style.display = "block";
+});
+
+marker.getElement().addEventListener("mouseleave", () => {
+  label.style.display = "none";
+});
+
+marker.getElement().title = place.name;
+
+markers[place.id]=marker;
 box.appendChild(button);
 
 });
