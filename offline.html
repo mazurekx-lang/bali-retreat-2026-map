@@ -57,12 +57,19 @@ header{
     justify-content:center;
 }
 
-.flower img{
-    width:55px;
-    height:55px;
-    object-fit:contain;
-    display:block;
+.flower::before{
+    content:none !important;
 }
+
+.flower img{
+    width:55px !important;
+    height:55px !important;
+    max-width:55px !important;
+    max-height:55px !important;
+    object-fit:contain !important;
+    display:block !important;
+}
+  
 h1{
   margin:0;
   font-family:Georgia,serif;
