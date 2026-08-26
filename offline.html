@@ -932,13 +932,15 @@ card.innerHTML=`
 
 <div class="card-head">
 
-<img src="bali_icons/${place.category.includes("Baza") ? "nasza-baza.png" :
+<img src="bali_icons/${place.icon ? place.icon :
+place.category.includes("Baza") ? "nasza-baza.png" :
 place.category.includes("Natura") ? "natura.png" :
 place.category.includes("Świątynie") ? "swietynie.png" :
 place.category.includes("Kultura") ? "kultura.png" :
 place.category.includes("Sztuka") ? "sztuka.png" :
 place.category.includes("Zakupy") ? "zakupy.png" :
 "mapa.png"}" class="category-icon">
+
 
 <div class="name">
 ${place.name}
