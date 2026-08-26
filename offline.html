@@ -927,11 +927,16 @@ card.innerHTML=`
 
 <div class="card-head">
 
-<div class="emoji">
-${place.emoji}
-</div>
-
-<div>
+<img
+src="bali_icons/${{
+  "Baza":"nasza-baza.png",
+  "Natura":"natura.png",
+  "Świątynie":"swietynie.png",
+  "Kultura":"kultura.png",
+  "Sztuka":"sztuka.png",
+  "Zakupy":"zakupy.png"
+}[place.category] || "mapa.png"}"
+class="category-icon">
 
 <div class="name">
 ${place.name}
