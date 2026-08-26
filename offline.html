@@ -6,13 +6,10 @@
 
 <title>Bali Retreat 2026 · Offline Map</title>
 
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/maplibre-gl@5.13.0/dist/maplibre-gl.css"
->
+<link rel="stylesheet"
+href="https://unpkg.com/maplibre-gl@5.13.0/dist/maplibre-gl.css">
 
 <script src="https://unpkg.com/maplibre-gl@5.13.0/dist/maplibre-gl.js"></script>
-
 <script src="https://unpkg.com/pmtiles@4.4.1/dist/pmtiles.js"></script>
 
 <style>
@@ -39,21 +36,20 @@ body{
 
 header{
   text-align:center;
-  padding:25px 16px 18px;
+  padding:27px 16px 19px;
   background:linear-gradient(145deg,#f8f0e5,#e9dcc9);
   border-bottom:1px solid var(--border);
 }
 
 .flower{
   font-size:25px;
-  margin-bottom:4px;
 }
 
 h1{
   margin:0;
   font-family:Georgia,serif;
   font-weight:normal;
-  font-size:30px;
+  font-size:31px;
 }
 
 .subtitle{
@@ -68,18 +64,7 @@ h1{
   color:var(--gold);
   font-family:Georgia,serif;
   font-size:15px;
-  letter-spacing:.7px;
   font-weight:bold;
-}
-
-.offline{
-  margin:12px auto 0;
-  display:inline-block;
-  padding:7px 12px;
-  border-radius:20px;
-  background:#71816a;
-  color:white;
-  font-size:11px;
 }
 
 .intro{
@@ -91,24 +76,79 @@ h1{
   color:#766858;
 }
 
+.offline-note{
+  text-align:center;
+  padding:9px;
+  background:#71816a;
+  color:white;
+  font-size:12px;
+}
+
+.map-wrap{
+  position:relative;
+  margin:14px;
+}
+
 #map{
   height:58vh;
   min-height:430px;
-  margin:14px;
   border-radius:22px;
   border:1px solid #d6c6b0;
   overflow:hidden;
   box-shadow:0 7px 25px #55483c22;
 }
 
-.status{
-  margin:10px 14px;
-  padding:10px 14px;
-  border-radius:12px;
-  background:var(--cream);
-  border:1px solid var(--border);
+.location-btn{
+  position:absolute;
+  right:12px;
+  top:12px;
+  z-index:1000;
+  border:0;
+  background:#fffaf4;
+  color:var(--brown);
+  padding:11px 14px;
+  border-radius:18px;
+  box-shadow:0 3px 12px #55483c33;
   font-size:12px;
-  text-align:center;
+}
+
+.loading{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  z-index:900;
+  background:#fffaf3;
+  padding:15px 20px;
+  border-radius:15px;
+  box-shadow:0 3px 15px #55483c33;
+  font-size:13px;
+}
+
+.filters{
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  padding:10px 12px;
+  background:var(--cream);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+.filters button{
+  flex-shrink:0;
+  border:1px solid #d5c4ad;
+  background:white;
+  color:var(--brown);
+  border-radius:22px;
+  padding:8px 13px;
+  font-size:12px;
+}
+
+.filters button.active{
+  background:var(--green);
+  color:white;
+  border-color:var(--green);
 }
 
 .cards{
@@ -121,6 +161,17 @@ h1{
   border-radius:18px;
   padding:14px;
   margin-bottom:10px;
+  box-shadow:0 3px 12px #55483c10;
+}
+
+.card-head{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.emoji{
+  font-size:25px;
 }
 
 .name{
@@ -131,7 +182,7 @@ h1{
 .category{
   color:var(--green);
   font-size:11px;
-  margin-top:3px;
+  margin-top:2px;
 }
 
 .description{
@@ -147,23 +198,26 @@ h1{
   font-size:12px;
 }
 
-button,
-a{
-  display:block;
-  width:100%;
-  margin-top:9px;
-  padding:10px;
-  border-radius:10px;
-  border:0;
+.buttons{
+  display:flex;
+  gap:7px;
+  margin-top:10px;
+}
+
+.buttons button,
+.buttons a{
+  flex:1;
   text-align:center;
-  text-decoration:none;
+  padding:9px 6px;
+  border-radius:10px;
   font-size:12px;
+  text-decoration:none;
 }
 
 .show{
+  border:1px solid #d7c7b0;
   background:#f7efe4;
   color:var(--brown);
-  border:1px solid #d7c7b0;
 }
 
 .navigate{
@@ -175,6 +229,7 @@ footer{
   text-align:center;
   padding:20px;
   font-size:11px;
+  line-height:1.5;
   color:#817566;
 }
 
@@ -185,231 +240,809 @@ footer{
 
 <header>
 
-  <div class="flower">🌺</div>
+<div class="flower">🌺</div>
 
-  <h1>Bali Retreat 2026</h1>
+<h1>Bali Retreat 2026</h1>
 
-  <div class="subtitle">
-    MAPA SPACEROWA · UBUD
-  </div>
+<div class="subtitle">
+MAPA SPACEROWA · UBUD
+</div>
 
-  <div class="brand">
-    JOGOWE WYJAZDY W NIEMCZECH
-  </div>
-
-  <div class="offline">
-    📱 WERSJA OFFLINE
-  </div>
+<div class="brand">
+JOGOWE WYJAZDY W NIEMCZECH
+</div>
 
 </header>
 
-<div class="intro">
-  Wszystko, co najważniejsze — na piechotę z Krishna House ♡
+<div class="offline-note">
+📱 MAPA OFFLINE · DANE MAPY ZAPISANE LOKALNIE
 </div>
 
-<div id="status" class="status">
-  🗺️ Ładowanie lokalnej mapy...
+<div class="intro">
+Wszystko, co najważniejsze — na piechotę z Krishna House ♡
 </div>
+
+<div class="filters" id="filters"></div>
+
+<div class="map-wrap">
+
+<button class="location-btn" onclick="findMe()">
+📍 Moja lokalizacja
+</button>
 
 <div id="map"></div>
+
+<div class="loading" id="loading">
+🔄 Ładowanie lokalnej mapy...
+</div>
+
+</div>
 
 <div class="cards" id="cards"></div>
 
 <footer>
 
-  <strong>JOGOWE WYJAZDY W NIEMCZECH</strong>
-
-  <br><br>
-
-  Bali Retreat 2026 · Ubud
-
-  <br>
-
-  © OpenStreetMap contributors
+<strong>JOGOWE WYJAZDY W NIEMCZECH</strong><br>
+Bali Retreat 2026 · Ubud<br><br>
+© OpenStreetMap contributors
 
 </footer>
 
 
 <script>
 
-/* =========================================
-   PUNKTY
-========================================= */
-
 const places = [
 
 {
- id:"hotel",
- name:"Krishna House",
- category:"🏨 Baza",
- emoji:"🏨",
- lat:-8.51245,
- lon:115.26565,
- walk:"Wasza baza",
- desc:"Jl. Jembawan No. 9B, Ubud, Bali 80571"
+id:"hotel",
+name:"Krishna House",
+category:"🏨 Baza",
+emoji:"🏨",
+lat:-8.51245,
+lon:115.26565,
+walk:"Wasza baza",
+desc:"Jl. Jembawan No. 9B, Ubud, Bali 80571"
 },
 
 {
- id:"saraswati",
- name:"Pura Taman Saraswati",
- category:"🌸 Świątynie",
- emoji:"🌸",
- lat:-8.50611,
- lon:115.26169,
- walk:"ok. 10–15 min",
- desc:"Piękna świątynia z lotosowym stawem w centrum Ubud."
+id:"saraswati",
+name:"Pura Taman Saraswati",
+category:"🌸 Świątynie",
+emoji:"🌸",
+lat:-8.50611,
+lon:115.26169,
+walk:"ok. 10–15 min",
+desc:"Piękna świątynia z lotosowym stawem w centrum Ubud."
 },
 
 {
- id:"palace",
- name:"Ubud Palace",
- category:"👑 Świątynie",
- emoji:"👑",
- lat:-8.50672,
- lon:115.26271,
- walk:"ok. 10–15 min",
- desc:"Pałac królewski Ubud."
+id:"palace",
+name:"Ubud Palace",
+category:"👑 Świątynie",
+emoji:"👑",
+lat:-8.50672,
+lon:115.26271,
+walk:"ok. 10–15 min",
+desc:"Pałac królewski Ubud."
 },
 
 {
- id:"market",
- name:"Ubud Art Market",
- category:"🧺 Zakupy",
- emoji:"🧺",
- lat:-8.50642,
- lon:115.26218,
- walk:"ok. 10–15 min",
- desc:"Tradycyjny bazar z rękodziełem, sarongami i pamiątkami."
+id:"market",
+name:"Ubud Art Market",
+category:"🧺 Zakupy",
+emoji:"🧺",
+lat:-8.50642,
+lon:115.26218,
+walk:"ok. 10–15 min",
+desc:"Tradycyjny bazar z rękodziełem, sarongami i pamiątkami."
 },
 
 {
- id:"lukisan",
- name:"Museum Puri Lukisan",
- category:"🎨 Sztuka",
- emoji:"🎨",
- lat:-8.50520,
- lon:115.26027,
- walk:"ok. 10–15 min",
- desc:"Muzeum balijskiej sztuki i malarstwa."
+id:"lukisan",
+name:"Museum Puri Lukisan",
+category:"🎨 Sztuka",
+emoji:"🎨",
+lat:-8.50520,
+lon:115.26027,
+walk:"ok. 10–15 min",
+desc:"Muzeum balijskiej sztuki i malarstwa."
 },
 
 {
- id:"campuhan",
- name:"Campuhan Ridge Walk",
- category:"🌿 Natura",
- emoji:"🌿",
- lat:-8.50361,
- lon:115.25470,
- walk:"ok. 20–25 min do wejścia",
- desc:"Piękny spacer grzbietem wzgórza."
+id:"campuhan",
+name:"Campuhan Ridge Walk",
+category:"🌿 Natura",
+emoji:"🌿",
+lat:-8.50361,
+lon:115.25470,
+walk:"ok. 20–25 min do wejścia",
+desc:"Piękny spacer grzbietem wzgórza."
 },
 
 {
- id:"kajeng",
- name:"Kajeng Rice Fields",
- category:"🌾 Natura",
- emoji:"🌾",
- lat:-8.50390,
- lon:115.26680,
- walk:"ok. 10–15 min",
- desc:"Spokojny spacer przez pola ryżowe."
+id:"kajeng",
+name:"Kajeng Rice Fields",
+category:"🌾 Natura",
+emoji:"🌾",
+lat:-8.50390,
+lon:115.26680,
+walk:"ok. 10–15 min",
+desc:"Spokojny spacer przez pola ryżowe."
 },
 
 {
- id:"monkey",
- name:"Sacred Monkey Forest",
- category:"🐒 Natura",
- emoji:"🐒",
- lat:-8.51892,
- lon:115.25867,
- walk:"ok. 20–25 min",
- desc:"Las, świątynie i małpy."
+id:"monkey",
+name:"Sacred Monkey Forest",
+category:"🐒 Natura",
+emoji:"🐒",
+lat:-8.51892,
+lon:115.25867,
+walk:"ok. 20–25 min",
+desc:"Las, świątynie i małpy."
 },
 
 {
- id:"coco",
- name:"Coco Supermarket",
- category:"🛒 Zakupy",
- emoji:"🛒",
- lat:-8.51710,
- lon:115.26295,
- walk:"ok. 10–15 min",
- desc:"Woda, owoce, przekąski i rzeczy codziennego użytku."
+id:"coco",
+name:"Coco Supermarket",
+category:"🛒 Zakupy",
+emoji:"🛒",
+lat:-8.51710,
+lon:115.26295,
+walk:"ok. 10–15 min",
+desc:"Woda, owoce, przekąski i rzeczy codziennego użytku."
 },
 
 {
- id:"blanco",
- name:"Blanco Renaissance Museum",
- category:"🖼️ Sztuka",
- emoji:"🖼️",
- lat:-8.50690,
- lon:115.25610,
- walk:"ok. 20–25 min",
- desc:"Muzeum sztuki w charakterystycznym domu na wzgórzu."
+id:"blanco",
+name:"Blanco Renaissance Museum",
+category:"🖼️ Sztuka",
+emoji:"🖼️",
+lat:-8.50690,
+lon:115.25610,
+walk:"ok. 20–25 min",
+desc:"Muzeum sztuki w charakterystycznym domu na wzgórzu."
 },
 
 {
- id:"arma",
- name:"ARMA Museum",
- category:"🪷 Sztuka",
- emoji:"🪷",
- lat:-8.52200,
- lon:115.26540,
- walk:"ok. 25–30 min",
- desc:"Muzeum sztuki balijskiej w zielonym kompleksie."
+id:"arma",
+name:"ARMA Museum",
+category:"🪷 Sztuka",
+emoji:"🪷",
+lat:-8.52200,
+lon:115.26540,
+walk:"ok. 25–30 min",
+desc:"Muzeum sztuki balijskiej w zielonym kompleksie."
 },
 
 {
- id:"taman",
- name:"Pura Dalem Taman Kaja",
- category:"🔥 Kultura",
- emoji:"🔥",
- lat:-8.506313,
- lon:115.265367,
- walk:"ok. 15–20 min od Saraswati",
- desc:"Miejsce Kecak & Fire Dance. Wasz plan: środa 7.10.2026."
+id:"taman",
+name:"Pura Dalem Taman Kaja",
+category:"🔥 Kultura",
+emoji:"🔥",
+lat:-8.506313,
+lon:115.265367,
+walk:"ok. 15–20 min od Saraswati",
+desc:"Miejsce Kecak & Fire Dance. Wasz plan: środa 7.10.2026."
 }
 
 ];
 
 
-/* =========================================
-   PMTILES
-========================================= */
+const categories={
 
-const protocol = new pmtiles.Protocol();
+"Wszystko":"✨",
+"Baza":"🏨",
+"Natura":"🌿",
+"Świątynie":"🛕",
+"Kultura":"🔥",
+"Sztuka":"🎨",
+"Zakupy":"🛍️"
+
+};
+
+
+let activeCategory="Wszystko";
+
+let map;
+let markers={};
+let myLocationMarker=null;
+
+
+/* =====================================
+   PMTILES — LOKALNY PLIK
+===================================== */
+
+const PMTILES_URL =
+new URL("ubud.pmtiles",window.location.href).href;
+
+const protocol =
+new pmtiles.Protocol();
 
 maplibregl.addProtocol(
-  "pmtiles",
-  protocol.tile
+"pmtiles",
+protocol.tile
 );
 
+const tileset =
+new pmtiles.PMTiles(PMTILES_URL);
 
-/* =========================================
-   LOKALNY PLIK MAPY
-========================================= */
-
-const PMTILES_URL = "./ubud.pmtiles";
-
-const tiles = new pmtiles.PMTiles(PMTILES_URL);
-
-protocol.add(tiles);
+protocol.add(tileset);
 
 
-/* =========================================
+/* =====================================
    MAPA
-========================================= */
+===================================== */
 
-const map = new maplibregl.Map({
+async function startMap(){
 
-  container:"map",
+try{
 
-  center:[115.2625,-8.5105],
+const header =
+await tileset.getHeader();
 
-  zoom:15,
+map =
+new maplibregl.Map({
 
-  style:{
-    version:8,
+container:"map",
 
-    sources
+center:[
+header.centerLon || 115.2625,
+header.centerLat || -8.5105
+],
+
+zoom:15,
+
+style:{
+
+version:8,
+
+sources:{
+
+"ubud":{
+type:"vector",
+url:"pmtiles://"+PMTILES_URL
+}
+
+},
+
+layers:[
+
+{
+id:"background",
+type:"background",
+paint:{
+"background-color":"#f5eee3"
+}
+},
+
+{
+id:"earth",
+type:"fill",
+source:"ubud",
+"source-layer":"earth",
+paint:{
+"fill-color":"#f5eee3"
+}
+},
+
+{
+id:"landuse",
+type:"fill",
+source:"ubud",
+"source-layer":"landuse",
+paint:{
+"fill-color":"#eee5d7",
+"fill-opacity":0.65
+}
+},
+
+{
+id:"natural",
+type:"fill",
+source:"ubud",
+"source-layer":"natural",
+paint:{
+"fill-color":"#dfe8d9",
+"fill-opacity":0.75
+}
+},
+
+{
+id:"water",
+type:"fill",
+source:"ubud",
+"source-layer":"water",
+paint:{
+"fill-color":"#c9dedb"
+}
+},
+
+{
+id:"buildings",
+type:"fill",
+source:"ubud",
+"source-layer":"buildings",
+paint:{
+"fill-color":"#ded5c9",
+"fill-opacity":0.7
+}
+},
+
+{
+id:"roads",
+type:"line",
+source:"ubud",
+"source-layer":"roads",
+paint:{
+"line-color":"#ffffff",
+"line-width":[
+"interpolate",
+["linear"],
+["zoom"],
+10,0.5,
+14,1.5,
+17,4
+]
+}
+},
+
+{
+id:"roads-main",
+type:"line",
+source:"ubud",
+"source-layer":"roads",
+filter:[
+"in",
+["get","kind"],
+"highway",
+"major_road"
+],
+paint:{
+"line-color":"#d1b98f",
+"line-width":[
+"interpolate",
+["linear"],
+["zoom"],
+10,1,
+14,2,
+17,5
+]
+}
+}
+
+]
+
+}
+
+});
+
+map.addControl(
+new maplibregl.NavigationControl(),
+"top-left"
+);
+
+map.on("load",()=>{
+
+document.getElementById("loading").style.display="none";
+
+addMarkers();
+
+});
+
+}catch(error){
+
+console.error(error);
+
+document.getElementById("loading").innerHTML=
+"❌ Nie udało się załadować lokalnej mapy.";
+
+}
+
+}
+
+
+/* =====================================
+   GOOGLE MAPS
+===================================== */
+
+function googleMaps(place){
+
+return "https://www.google.com/maps/dir/?api=1"
++"&destination="+place.lat+","+place.lon
++"&travelmode=walking";
+
+}
+
+
+/* =====================================
+   MARKERY
+===================================== */
+
+function icon(place){
+
+let border="#71816a";
+
+if(place.id==="hotel")
+border="#b79b6b";
+
+if(place.id==="taman")
+border="#b76b50";
+
+return new maplibregl.Marker({
+
+element:(()=>{
+
+const el=document.createElement("div");
+
+el.innerHTML=place.emoji;
+
+el.style.width="40px";
+el.style.height="40px";
+el.style.borderRadius="50%";
+el.style.background="#fffaf3";
+el.style.border="3px solid "+border;
+el.style.display="flex";
+el.style.alignItems="center";
+el.style.justifyContent="center";
+el.style.fontSize="20px";
+el.style.boxShadow="0 3px 10px #55483c55";
+
+return el;
+
+})()
+
+});
+
+}
+
+
+function popup(place){
+
+const el=document.createElement("div");
+
+el.style.minWidth="210px";
+
+el.innerHTML=`
+
+<h3>${place.emoji} ${place.name}</h3>
+
+<div style="
+color:#71816a;
+font-size:11px;
+margin-bottom:8px;
+">
+${place.category}
+</div>
+
+<p style="
+font-size:12px;
+line-height:1.45;
+">
+${place.desc}
+</p>
+
+<div style="
+color:#71816a;
+font-weight:bold;
+font-size:12px;
+">
+🚶 ${place.walk}
+</div>
+
+<a
+href="${googleMaps(place)}"
+target="_blank"
+style="
+display:block;
+text-align:center;
+margin-top:10px;
+padding:9px;
+border-radius:10px;
+background:#71816a;
+color:white;
+text-decoration:none;
+font-size:12px;
+">
+
+🧭 Prowadź mnie w Google Maps
+
+</a>
+
+`;
+
+return el;
+
+}
+
+
+function addMarkers(){
+
+if(!map)return;
+
+Object.values(markers).forEach(
+marker=>marker.remove()
+);
+
+markers={};
+
+places
+.filter(p=>
+activeCategory==="Wszystko" ||
+p.category.includes(activeCategory)
+)
+.forEach(place=>{
+
+const marker=icon(place)
+.setLngLat([
+place.lon,
+place.lat
+])
+.setPopup(
+new maplibregl.Popup({
+offset:25
+})
+.setDOMContent(
+popup(place)
+)
+)
+.addTo(map);
+
+markers[place.id]=marker;
+
+});
+
+}
+
+
+/* =====================================
+   FILTRY
+===================================== */
+
+function createFilters(){
+
+const box=
+document.getElementById("filters");
+
+box.innerHTML="";
+
+Object.keys(categories)
+.forEach(category=>{
+
+const button=
+document.createElement("button");
+
+button.textContent=
+categories[category]+" "+category;
+
+if(category===activeCategory)
+button.classList.add("active");
+
+button.onclick=()=>{
+
+activeCategory=category;
+
+createFilters();
+addMarkers();
+renderCards();
+
+};
+
+box.appendChild(button);
+
+});
+
+}
+
+
+/* =====================================
+   KARTY
+===================================== */
+
+function renderCards(){
+
+const box=
+document.getElementById("cards");
+
+box.innerHTML="";
+
+places
+.filter(p=>
+activeCategory==="Wszystko" ||
+p.category.includes(activeCategory)
+)
+.forEach(place=>{
+
+const card=
+document.createElement("div");
+
+card.className="card";
+
+card.innerHTML=`
+
+<div class="card-head">
+
+<div class="emoji">
+${place.emoji}
+</div>
+
+<div>
+
+<div class="name">
+${place.name}
+</div>
+
+<div class="category">
+${place.category}
+</div>
+
+</div>
+
+</div>
+
+<div class="description">
+${place.desc}
+</div>
+
+<div class="walk">
+🚶 ${place.walk}
+</div>
+
+<div class="buttons">
+
+<button
+class="show"
+onclick="showPlace('${place.id}')">
+
+Pokaż na mapie
+
+</button>
+
+<a
+class="navigate"
+href="${googleMaps(place)}"
+target="_blank">
+
+Nawiguj →
+
+</a>
+
+</div>
+
+`;
+
+box.appendChild(card);
+
+});
+
+}
+
+
+/* =====================================
+   POKAŻ MIEJSCE
+===================================== */
+
+function showPlace(id){
+
+const place=
+places.find(p=>p.id===id);
+
+if(!place || !map)return;
+
+map.flyTo({
+
+center:[
+place.lon,
+place.lat
+],
+
+zoom:16
+
+});
+
+if(markers[id])
+markers[id].togglePopup();
+
+document.getElementById("map")
+.scrollIntoView({
+
+behavior:"smooth",
+block:"center"
+
+});
+
+}
+
+
+/* =====================================
+   GPS
+===================================== */
+
+function findMe(){
+
+if(!navigator.geolocation){
+
+alert(
+"Twoja przeglądarka nie obsługuje GPS."
+);
+
+return;
+
+}
+
+navigator.geolocation.getCurrentPosition(
+
+position=>{
+
+const lat=
+position.coords.latitude;
+
+const lon=
+position.coords.longitude;
+
+if(myLocationMarker)
+myLocationMarker.remove();
+
+const el=
+document.createElement("div");
+
+el.innerHTML="📍";
+
+el.style.fontSize="30px";
+
+myLocationMarker=
+new maplibregl.Marker({
+element:el
+})
+.setLngLat([lon,lat])
+.setPopup(
+new maplibregl.Popup()
+.setText("📍 Twoja aktualna lokalizacja")
+)
+.addTo(map);
+
+map.flyTo({
+
+center:[lon,lat],
+zoom:16
+
+});
+
+},
+
+()=>{
+
+alert(
+"Nie udało się pobrać lokalizacji. Sprawdź, czy GPS jest włączony."
+);
+
+},
+
+{
+
+enableHighAccuracy:true,
+timeout:15000,
+maximumAge:0
+
+}
+
+);
+
+}
+
+
+/* =====================================
+   START
+===================================== */
+
+createFilters();
+
+renderCards();
+
+startMap();
+
+</script>
+
+</body>
+</html>
+
 
