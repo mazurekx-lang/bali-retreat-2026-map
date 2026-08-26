@@ -724,14 +724,16 @@ const el=document.createElement("div");
 
 const cat = place.category;
 
-let iconFile = "mapa.png";
+let iconFile = place.icon || "mapa.png";
 
-if(cat.includes("Baza")) iconFile = "nasza-baza.png";
-else if(cat.includes("Natura")) iconFile = "natura.png";
-else if(cat.includes("Świątynie")) iconFile = "swietynie.png";
-else if(cat.includes("Kultura")) iconFile = "kultura.png";
-else if(cat.includes("Sztuka")) iconFile = "sztuka.png";
-else if(cat.includes("Zakupy")) iconFile = "zakupy.png";
+if(!place.icon){
+  if(cat.includes("Baza")) iconFile = "nasza-baza.png";
+  else if(cat.includes("Natura")) iconFile = "natura.png";
+  else if(cat.includes("Świątynie")) iconFile = "swietynie.png";
+  else if(cat.includes("Kultura")) iconFile = "kultura.png";
+  else if(cat.includes("Sztuka")) iconFile = "sztuka.png";
+  else if(cat.includes("Zakupy")) iconFile = "zakupy.png";
+}
 
 el.innerHTML = `<img src="bali_icons/${iconFile}" style="width:32px;height:32px;object-fit:contain;">`;
 el.title = place.name;
