@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bali Retreat 2026 · Offline Map</title>
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/maplibre-gl@5.13.0/dist/maplibre-gl.css"
+>
+
+<script src="https://unpkg.com/maplibre-gl@5.13.0/dist/maplibre-gl.js"></script>
+
+<script src="https://unpkg.com/pmtiles@4.4.1/dist/pmtiles.js"></script>
+
+<style>
+
+:root{
+  --beige:#f5eee3;
+  --cream:#fffaf3;
+  --brown:#55483c;
+  --green:#71816a;
+  --gold:#b79b6b;
+  --border:#dfd1bd;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:var(--beige);
+  color:var(--brown);
+  font-family:Arial,sans-serif;
+}
+
+header{
+  text-align:center;
+  padding:25px 16px 18px;
+  background:linear-gradient(145deg,#f8f0e5,#e9dcc9);
+  border-bottom:1px solid var(--border);
+}
+
+.flower{
+  font-size:25px;
+  margin-bottom:4px;
+}
+
+h1{
+  margin:0;
+  font-family:Georgia,serif;
+  font-weight:normal;
+  font-size:30px;
+}
+
+.subtitle{
+  margin-top:7px;
+  color:var(--green);
+  font-size:13px;
+  letter-spacing:1px;
+}
+
+.brand{
+  margin-top:9px;
+  color:var(--gold);
+  font-family:Georgia,serif;
+  font-size:15px;
+  letter-spacing:.7px;
+  font-weight:bold;
+}
+
+.offline{
+  margin:12px auto 0;
+  display:inline-block;
+  padding:7px 12px;
+  border-radius:20px;
+  background:#71816a;
+  color:white;
+  font-size:11px;
+}
+
+.intro{
+  text-align:center;
+  padding:13px 18px;
+  background:var(--cream);
+  font-family:Georgia,serif;
+  font-style:italic;
+  color:#766858;
+}
+
+#map{
+  height:58vh;
+  min-height:430px;
+  margin:14px;
+  border-radius:22px;
+  border:1px solid #d6c6b0;
+  overflow:hidden;
+  box-shadow:0 7px 25px #55483c22;
+}
+
+.status{
+  margin:10px 14px;
+  padding:10px 14px;
+  border-radius:12px;
+  background:var(--cream);
+  border:1px solid var(--border);
+  font-size:12px;
+  text-align:center;
+}
+
+.cards{
+  padding:0 14px 30px;
+}
+
+.card{
+  background:#fffdf9;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:14px;
+  margin-bottom:10px;
+}
+
+.name{
+  font-family:Georgia,serif;
+  font-size:17px;
+}
+
+.category{
+  color:var(--green);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.description{
+  margin:8px 0;
+  font-size:13px;
+  line-height:1.45;
+  color:#6c6257;
+}
+
+.walk{
+  color:var(--green);
+  font-weight:bold;
+  font-size:12px;
+}
+
+button,
+a{
+  display:block;
+  width:100%;
+  margin-top:9px;
+  padding:10px;
+  border-radius:10px;
+  border:0;
+  text-align:center;
+  text-decoration:none;
+  font-size:12px;
+}
+
+.show{
+  background:#f7efe4;
+  color:var(--brown);
+  border:1px solid #d7c7b0;
+}
+
+.navigate{
+  background:var(--green);
+  color:white;
+}
+
+footer{
+  text-align:center;
+  padding:20px;
+  font-size:11px;
+  color:#817566;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="flower">🌺</div>
+
+  <h1>Bali Retreat 2026</h1>
+
+  <div class="subtitle">
+    MAPA SPACEROWA · UBUD
+  </div>
+
+  <div class="brand">
+    JOGOWE WYJAZDY W NIEMCZECH
+  </div>
+
+  <div class="offline">
+    📱 WERSJA OFFLINE
+  </div>
+
+</header>
+
+<div class="intro">
+  Wszystko, co najważniejsze — na piechotę z Krishna House ♡
+</div>
+
+<div id="status" class="status">
+  🗺️ Ładowanie lokalnej mapy...
+</div>
+
+<div id="map"></div>
+
+<div class="cards" id="cards"></div>
+
+<footer>
+
+  <strong>JOGOWE WYJAZDY W NIEMCZECH</strong>
+
+  <br><br>
+
+  Bali Retreat 2026 · Ubud
+
+  <br>
+
+  © OpenStreetMap contributors
+
+</footer>
+
+
+<script>
+
+/* =========================================
+   PUNKTY
+========================================= */
+
+const places = [
+
+{
+ id:"hotel",
+ name:"Krishna House",
+ category:"🏨 Baza",
+ emoji:"🏨",
+ lat:-8.51245,
+ lon:115.26565,
+ walk:"Wasza baza",
+ desc:"Jl. Jembawan No. 9B, Ubud, Bali 80571"
+},
+
+{
+ id:"saraswati",
+ name:"Pura Taman Saraswati",
+ category:"🌸 Świątynie",
+ emoji:"🌸",
+ lat:-8.50611,
+ lon:115.26169,
+ walk:"ok. 10–15 min",
+ desc:"Piękna świątynia z lotosowym stawem w centrum Ubud."
+},
+
+{
+ id:"palace",
+ name:"Ubud Palace",
+ category:"👑 Świątynie",
+ emoji:"👑",
+ lat:-8.50672,
+ lon:115.26271,
+ walk:"ok. 10–15 min",
+ desc:"Pałac królewski Ubud."
+},
+
+{
+ id:"market",
+ name:"Ubud Art Market",
+ category:"🧺 Zakupy",
+ emoji:"🧺",
+ lat:-8.50642,
+ lon:115.26218,
+ walk:"ok. 10–15 min",
+ desc:"Tradycyjny bazar z rękodziełem, sarongami i pamiątkami."
+},
+
+{
+ id:"lukisan",
+ name:"Museum Puri Lukisan",
+ category:"🎨 Sztuka",
+ emoji:"🎨",
+ lat:-8.50520,
+ lon:115.26027,
+ walk:"ok. 10–15 min",
+ desc:"Muzeum balijskiej sztuki i malarstwa."
+},
+
+{
+ id:"campuhan",
+ name:"Campuhan Ridge Walk",
+ category:"🌿 Natura",
+ emoji:"🌿",
+ lat:-8.50361,
+ lon:115.25470,
+ walk:"ok. 20–25 min do wejścia",
+ desc:"Piękny spacer grzbietem wzgórza."
+},
+
+{
+ id:"kajeng",
+ name:"Kajeng Rice Fields",
+ category:"🌾 Natura",
+ emoji:"🌾",
+ lat:-8.50390,
+ lon:115.26680,
+ walk:"ok. 10–15 min",
+ desc:"Spokojny spacer przez pola ryżowe."
+},
+
+{
+ id:"monkey",
+ name:"Sacred Monkey Forest",
+ category:"🐒 Natura",
+ emoji:"🐒",
+ lat:-8.51892,
+ lon:115.25867,
+ walk:"ok. 20–25 min",
+ desc:"Las, świątynie i małpy."
+},
+
+{
+ id:"coco",
+ name:"Coco Supermarket",
+ category:"🛒 Zakupy",
+ emoji:"🛒",
+ lat:-8.51710,
+ lon:115.26295,
+ walk:"ok. 10–15 min",
+ desc:"Woda, owoce, przekąski i rzeczy codziennego użytku."
+},
+
+{
+ id:"blanco",
+ name:"Blanco Renaissance Museum",
+ category:"🖼️ Sztuka",
+ emoji:"🖼️",
+ lat:-8.50690,
+ lon:115.25610,
+ walk:"ok. 20–25 min",
+ desc:"Muzeum sztuki w charakterystycznym domu na wzgórzu."
+},
+
+{
+ id:"arma",
+ name:"ARMA Museum",
+ category:"🪷 Sztuka",
+ emoji:"🪷",
+ lat:-8.52200,
+ lon:115.26540,
+ walk:"ok. 25–30 min",
+ desc:"Muzeum sztuki balijskiej w zielonym kompleksie."
+},
+
+{
+ id:"taman",
+ name:"Pura Dalem Taman Kaja",
+ category:"🔥 Kultura",
+ emoji:"🔥",
+ lat:-8.506313,
+ lon:115.265367,
+ walk:"ok. 15–20 min od Saraswati",
+ desc:"Miejsce Kecak & Fire Dance. Wasz plan: środa 7.10.2026."
+}
+
+];
+
+
+/* =========================================
+   PMTILES
+========================================= */
+
+const protocol = new pmtiles.Protocol();
+
+maplibregl.addProtocol(
+  "pmtiles",
+  protocol.tile
+);
+
+
+/* =========================================
+   LOKALNY PLIK MAPY
+========================================= */
+
+const PMTILES_URL = "./ubud.pmtiles";
+
+const tiles = new pmtiles.PMTiles(PMTILES_URL);
+
+protocol.add(tiles);
+
+
+/* =========================================
+   MAPA
+========================================= */
+
+const map = new maplibregl.Map({
+
+  container:"map",
+
+  center:[115.2625,-8.5105],
+
+  zoom:15,
+
+  style:{
+    version:8,
+
+    sources
+
