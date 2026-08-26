@@ -829,41 +829,30 @@ p.category.includes(activeCategory)
 .forEach(place=>{
 
 const marker=icon(place)
-.setLngLat([
-place.lon,
-place.lat
-])
-.setPopup(
-new maplibregl.Popup({
-offset:25
-})
-.setDOMContent(
-popup(place)
-)
-)
-.addTo(map);
-.addTo(map);
+  .setLngLat([
+    place.lon,
+    place.lat
+  ])
+  .setPopup(
+    new maplibregl.Popup({
+      offset:25,
+      closeButton:false,
+      closeOnClick:false
+    }).setHTML(
+      `<strong>${place.name}</strong>`
+    )
+  )
+  .addTo(map);
 
 marker.getElement().addEventListener("mouseenter", () => {
-  marker.getElement().style.cursor = "pointer";
-  marker.setPopup(
-    new maplibregl.Popup({
-      offset: 25,
-      closeButton: false,
-      closeOnClick: false
-    }).setHTML(`<strong>${place.name}</strong>`)
-  ).togglePopup();
+  marker.getPopup().addTo(map);
 });
 
 marker.getElement().addEventListener("mouseleave", () => {
-  marker.getElement().style.cursor = "";
-  marker.getPopup()?.remove();
+  marker.getPopup().remove();
 });
 
-marker.getElement().title = place.name;
-
-markers[place.id] = marker;
-marker.getElement().title = place.name;
+marker.getElement().style.cursor="pointer";
 
 markers[place.id]=marker;
 
