@@ -858,76 +858,47 @@ markers[place.id]=marker;
 
 function createFilters(){
 
-const box=
+const box =
 document.getElementById("filters");
 
-box.innerHTML="";
+box.innerHTML = "";
 
 Object.keys(categories)
-.forEach(category=>{
+.forEach(category => {
 
-const button=
+const button =
 document.createElement("button");
 
 const iconFiles = {
   "Wszystko": "mapa.png",
   "Baza": "nasza-baza.png",
   "Natura": "natura.png",
-"Świątynie": "swietynie.png",
+  "Świątynie": "swietynie.png",
   "Kultura": "kultura.png",
   "Sztuka": "sztuka.png",
   "Zakupy": "zakupy.png"
 };
+
 const iconFile = iconFiles[category];
 
 button.innerHTML =
   `<img src="bali_icons/${iconFile}" class="category-icon">`;
 
-button.onclick=()=>{
+button.onclick = () => {
 
-activeCategory=category;
+activeCategory = category;
 
 createFilters();
 addMarkers();
 renderCards();
 
 };
-.addTo(map);
 
-const label = document.createElement("div");
-label.textContent = place.name;
-label.style.position = "absolute";
-label.style.bottom = "48px";
-label.style.left = "50%";
-label.style.transform = "translateX(-50%)";
-label.style.background = "white";
-label.style.padding = "5px 9px";
-label.style.borderRadius = "8px";
-label.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
-label.style.fontSize = "13px";
-label.style.whiteSpace = "nowrap";
-label.style.display = "none";
-label.style.zIndex = "1000";
-
-marker.getElement().appendChild(label);
-
-marker.getElement().addEventListener("mouseenter", () => {
-  label.style.display = "block";
-});
-
-marker.getElement().addEventListener("mouseleave", () => {
-  label.style.display = "none";
-});
-
-marker.getElement().title = place.name;
-
-markers[place.id]=marker;
 box.appendChild(button);
 
 });
 
 }
-
 
 /* =====================================
    KARTY
