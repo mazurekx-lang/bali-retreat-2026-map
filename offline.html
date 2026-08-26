@@ -829,7 +829,6 @@ p.category.includes(activeCategory)
 .forEach(place=>{
 
 const marker=icon(place)
-
   .setLngLat([
     place.lon,
     place.lat
@@ -847,8 +846,6 @@ const marker=icon(place)
 marker.getElement().title = place.name;
 
 markers[place.id]=marker;
-
-
 });
 
 }
