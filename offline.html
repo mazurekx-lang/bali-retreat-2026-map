@@ -834,7 +834,10 @@ popup(place)
 )
 )
 .addTo(map);
+const iconFile = iconFiles[category];
 
+button.innerHTML =
+  `<img src="bali_icons/${iconFile}" class="category-icon">`;
 markers[place.id]=marker;
 
 });
