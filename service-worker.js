@@ -1,4 +1,4 @@
-const CACHE_NAME = "bali-retreat-2026-v2";
+const CACHE_NAME = "bali-retreat-2026-v3";
 
 const FILES_TO_CACHE = [
   "./",
