@@ -1,1 +1,23 @@
-
+{
+  "name": "Bali Retreat 2026",
+  "short_name": "Bali Retreat",
+  "description": "Mapa spacerowa Ubud – Bali Retreat 2026",
+  "start_url": "./offline.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5eee3",
+  "theme_color": "#71816a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "bali_icons/app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "bali_icons/app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
