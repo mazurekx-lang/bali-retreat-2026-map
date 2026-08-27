@@ -490,7 +490,7 @@ let activePopup=null;
 });
   let sharedPopup = new maplibregl.Popup({
   offset:25,
-  closeOnClick:true
+  closeOnClick:false
 });
 
 
@@ -880,9 +880,7 @@ markers[place.id] = marker;
       marker.getElement().title = place.name;
 
       marker.getElement().addEventListener("click", () => {
-
-    document.querySelectorAll(".maplibregl-popup").forEach(p => p.remove());
-
+sharedPopup.remove();
     sharedPopup
         .setLngLat([
             place.lon,
