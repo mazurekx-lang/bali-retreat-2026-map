@@ -868,16 +868,14 @@ const marker=icon(place)
   ])
   .setPopup(
     new maplibregl.Popup({
-      offset:25
+        offset:25,
+        closeOnClick:true
     })
     .setDOMContent(
       popup(place)
     )
   )
   .addTo(map);
-marker.on("mousedown", () => {
-    document.querySelectorAll(".maplibregl-popup").forEach(p => p.remove());
-});
 
 /* =====================================
    FILTRY
