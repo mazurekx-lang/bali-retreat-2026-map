@@ -483,6 +483,7 @@ let activeCategory="Wszystko";
 var map;
 let markers={};
 let myLocationMarker=null;
+let activePopup=null;
 
 
 /* =====================================
@@ -874,7 +875,11 @@ const marker=icon(place)
     )
   )
   .addTo(map);
-
+marker.on("click", () => {
+Object.values(markers).forEach(m => {
+if (m !== marker) m.getPopup()?.remove();
+    });
+});
 marker.getElement().title = place.name;
 
 markers[place.id]=marker;
