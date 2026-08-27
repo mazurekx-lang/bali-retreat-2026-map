@@ -853,7 +853,11 @@ function addMarkers(){
   );
 
   markers = {};
-  activePopup = null;
+
+  const sharedPopup = new maplibregl.Popup({
+    offset: 25,
+    closeOnClick: true
+  });
 
   places
     .filter(p =>
@@ -867,35 +871,23 @@ function addMarkers(){
           place.lon,
           place.lat
         ])
-        .setPopup(
-          new maplibregl.Popup({
-            offset: 25
-          })
-          .setDOMContent(
-            popup(place)
-          )
-        )
         .addTo(map);
+
+      marker.getElement().title = place.name;
 
       marker.getElement().addEventListener("click", () => {
 
-  Object.values(markers).forEach(m => {
+        sharedPopup
+          .setLngLat([
+            place.lon,
+            place.lat
+          ])
+          .setDOMContent(
+            popup(place)
+          )
+          .addTo(map);
 
-    if(m !== marker){
-      const p = m.getPopup();
-
-      if(p){
-        p.remove();
-      }
-    }
-
-  });
-
-  activePopup = marker;
-
-});
-
-      marker.getElement().title = place.name;
+      });
 
       markers[place.id] = marker;
 
