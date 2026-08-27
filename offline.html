@@ -875,17 +875,8 @@ const marker=icon(place)
     )
   )
   .addTo(map);
-marker.on("click", () => {
-    setTimeout(() => {
-        Object.values(markers).forEach(m => {
-            if (m !== marker) {
-                const p = m.getPopup();
-                if (p && p.isOpen()) {
-                    p.remove();
-                }
-            }
-        });
-    }, 0);
+marker.on("mousedown", () => {
+    document.querySelectorAll(".maplibregl-popup").forEach(p => p.remove());
 });
 
 /* =====================================
