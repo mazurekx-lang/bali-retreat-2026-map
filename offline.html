@@ -877,22 +877,19 @@ function addMarkers(){
 
       marker.getElement().addEventListener("click", () => {
 
-        sharedPopup
-          .setLngLat([
+    document.querySelectorAll(".maplibregl-popup").forEach(p => p.remove());
+
+    sharedPopup
+        .setLngLat([
             place.lon,
             place.lat
-          ])
-          .setDOMContent(
+        ])
+        .setDOMContent(
             popup(place)
-          )
-          .addTo(map);
+        )
+        .addTo(map);
 
-      });
-
-      markers[place.id] = marker;
-
-    });
-
+});
 }
 /* =====================================
    FILTRY
