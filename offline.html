@@ -846,50 +846,58 @@ return el;
 
 function addMarkers(){
 
-if(!map)return;
+  if(!map)return;
 
-Object.values(markers).forEach(
-marker=>marker.remove()
-);
+  Object.values(markers).forEach(
+    marker => marker.remove()
+  );
 
-markers={};
+  markers = {};
+  activePopup = null;
 
-places
-.filter(p=>
-activeCategory==="Wszystko" ||
-p.category.includes(activeCategory)
-)
-.forEach(place=>{
-
-const marker = icon(place)
-  .setLngLat([
-    place.lon,
-    place.lat
-  ])
-  .setPopup(
-    new maplibregl.Popup({
-      offset:25
-    })
-    .setDOMContent(
-      popup(place)
+  places
+    .filter(p =>
+      activeCategory === "Wszystko" ||
+      p.category.includes(activeCategory)
     )
-  )
-  .addTo(map);
+    .forEach(place => {
 
-marker.on("click", () => {
+      const marker = icon(place)
+        .setLngLat([
+          place.lon,
+          place.lat
+        ])
+        .setPopup(
+          new maplibregl.Popup({
+            offset: 25
+          })
+          .setDOMContent(
+            popup(place)
+          )
+        )
+        .addTo(map);
 
-  if(activePopup && activePopup !== marker){
-    activePopup.getPopup()?.remove();
-  }
+      marker.on("click", () => {
 
-  activePopup = marker;
+        if(activePopup && activePopup !== marker){
+          const oldPopup = activePopup.getPopup();
 
-});
-  markers[place.id] = marker;
+          if(oldPopup && oldPopup.isOpen()){
+            oldPopup.remove();
+          }
+        }
 
-});
+        activePopup = marker;
+
+      });
+
+      marker.getElement().title = place.name;
+
+      markers[place.id] = marker;
+
+    });
+
 }
-
 /* =====================================
    FILTRY
 ===================================== */
