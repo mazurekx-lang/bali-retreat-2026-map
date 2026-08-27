@@ -484,6 +484,10 @@ var map;
 let markers={};
 let myLocationMarker=null;
 let activePopup=null;
+  let sharedPopup = new maplibregl.Popup({
+  offset:25,
+  closeOnClick:true
+});
 
 
 /* =====================================
@@ -854,11 +858,7 @@ function addMarkers(){
 
   markers = {};
 
-  const sharedPopup = new maplibregl.Popup({
-    offset: 25,
-    closeOnClick: true
-  });
-
+  
   places
     .filter(p =>
       activeCategory === "Wszystko" ||
@@ -1031,35 +1031,45 @@ box.appendChild(card);
 
 function showPlace(id){
 
-const place=
-places.find(p=>p.id===id);
+  const place = places.find(p => p.id === id);
 
-if(!place || !map)return;
+  if(!place || !map)return;
 
-map.flyTo({
+  map.flyTo({
+    center:[
+      place.lon,
+      place.lat
+    ],
+    zoom:16
+  });
 
-center:[
-place.lon,
-place.lat
-],
+  const marker = markers[id];
 
-zoom:16
+  if(marker){
 
-});
+    document.querySelectorAll(".maplibregl-popup").forEach(
+      p => p.remove()
+    );
 
-if(markers[id])
-markers[id].togglePopup();
+    sharedPopup
+      .setLngLat([
+        place.lon,
+        place.lat
+      ])
+      .setDOMContent(
+        popup(place)
+      )
+      .addTo(map);
 
-document.getElementById("map")
-.scrollIntoView({
+  }
 
-behavior:"smooth",
-block:"center"
-
-});
+  document.getElementById("map")
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
 
 }
-
 
 /* =====================================
    GPS
