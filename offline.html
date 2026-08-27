@@ -877,19 +877,23 @@ function addMarkers(){
         )
         .addTo(map);
 
-      marker.on("click", () => {
+      marker.getElement().addEventListener("click", () => {
 
-        if(activePopup && activePopup !== marker){
-          const oldPopup = activePopup.getPopup();
+  Object.values(markers).forEach(m => {
 
-          if(oldPopup && oldPopup.isOpen()){
-            oldPopup.remove();
-          }
-        }
+    if(m !== marker){
+      const p = m.getPopup();
 
-        activePopup = marker;
+      if(p){
+        p.remove();
+      }
+    }
 
-      });
+  });
+
+  activePopup = marker;
+
+});
 
       marker.getElement().title = place.name;
 
