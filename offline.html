@@ -561,7 +561,38 @@ paint:{
 "fill-color":"#e1ead8"
 }
 },
-
+{
+  id:"green-areas",
+  type:"fill",
+  source:"ubud",
+  "source-layer":"landuse",
+  filter:[
+    "in",
+    "kind",
+    "park",
+    "garden",
+    "grass",
+    "forest",
+    "wood",
+    "nature_reserve",
+    "playground"
+  ],
+  paint:{
+    "fill-color":[
+      "match",
+      ["get","kind"],
+      "park","#b8d9a8",
+      "garden","#c7dfb5",
+      "grass","#d2e5bd",
+      "forest","#9fc58f",
+      "wood","#a8ca98",
+      "nature_reserve","#8fbd82",
+      "playground","#c5dcae",
+      "#c5dcae"
+    ],
+    "fill-opacity":0.75
+  }
+},
 {
 id:"landuse",
 type:"fill",
