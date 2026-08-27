@@ -638,25 +638,42 @@ paint:{
 },
 
 {
-id:"roads",
-type:"line",
-source:"ubud",
-"source-layer":"roads",
-paint:{
-"line-color":"#ffffff",
-"line-width":[
-"interpolate",
-["linear"],
-["zoom"],
-10,0.5,
-14,1.5,
-17,4
-]
-}
+{
+  id:"roads-casing",
+  type:"line",
+  source:"ubud",
+  "source-layer":"roads",
+  paint:{
+    "line-color":"#d2c3ad",
+    "line-width":[
+      "interpolate",
+      ["linear"],
+      ["zoom"],
+      10,1,
+      14,3,
+      17,6
+    ],
+    "line-opacity":0.9
+  }
 },
 
 {
-id:"roads-main",
+  id:"roads",
+  type:"line",
+  source:"ubud",
+  "source-layer":"roads",
+  paint:{
+    "line-color":"#fffdf8",
+    "line-width":[
+      "interpolate",
+      ["linear"],
+      ["zoom"],
+      10,0.5,
+      14,1.8,
+      17,4.5
+    ]
+  }
+},
 type:"line",
 source:"ubud",
 "source-layer":"roads",
