@@ -1,10 +1,9 @@
-const CACHE_NAME = "bali-retreat-2026-v1";
+const CACHE_NAME = "bali-retreat-2026-v2";
 
 const FILES_TO_CACHE = [
   "./",
   "./offline.html",
-  "./manifest.json",
-  "./ubud.pmtiles"
+  "./manifest.json"
 ];
 
 self.addEventListener("install", event => {
@@ -32,18 +31,38 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
+
+  const url = new URL(event.request.url);
+
+  // PMTiles musi obsługiwać Range Requests bez ingerencji Service Workera
+  if (
+    url.pathname.endsWith("/ubud.pmtiles") ||
+    event.request.headers.has("range")
+  ) {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
+
       if (cachedResponse) {
         return cachedResponse;
       }
 
       return fetch(event.request).then(networkResponse => {
+
         return caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, networkResponse.clone());
+
+          if (event.request.method === "GET") {
+            cache.put(event.request, networkResponse.clone());
+          }
+
           return networkResponse;
+
         });
+
       });
+
     })
   );
 });
