@@ -872,7 +872,7 @@ function addMarkers(){
           place.lat
         ])
         .addTo(map);
-
+markers[place.id] = marker;
       marker.getElement().title = place.name;
 
       marker.getElement().addEventListener("click", () => {
