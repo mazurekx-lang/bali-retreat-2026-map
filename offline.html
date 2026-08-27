@@ -861,21 +861,34 @@ p.category.includes(activeCategory)
 )
 .forEach(place=>{
 
-const marker=icon(place)
+const marker = icon(place)
   .setLngLat([
     place.lon,
     place.lat
   ])
   .setPopup(
     new maplibregl.Popup({
-        offset:25,
-        closeOnClick:true
+      offset:25
     })
     .setDOMContent(
       popup(place)
     )
   )
   .addTo(map);
+
+marker.on("click", () => {
+
+  if(activePopup && activePopup !== marker){
+    activePopup.getPopup()?.remove();
+  }
+
+  activePopup = marker;
+
+});
+  markers[place.id] = marker;
+
+});
+}
 
 /* =====================================
    FILTRY
