@@ -525,8 +525,18 @@ async function startMap(){
 
 try{
 
-const header =
-await tileset.getHeader();
+const header = await Promise.race([
+    tileset.getHeader(),
+    new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("TIMEOUT PMTILES: getHeader nie odpowiedział w 15 sekund")), 15000)
+    )
+]);
+
+alert(
+    "PMTILES OK!\n" +
+    "centerLon: " + header.centerLon +
+    "\ncenterLat: " + header.centerLat
+);
 
 map =
 new maplibregl.Map({
