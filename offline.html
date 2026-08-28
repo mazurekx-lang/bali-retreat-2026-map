@@ -395,9 +395,10 @@ category:"🌿 Natura",
 emoji:"🌿",
 lat:-8.502712,
 lon:115.254850,
-googleDestination:"Mount Lebah Temple, Ubud, Bali",
+googleDestination:"Mount Lebah Temple",
+googleDestinationPlaceId:"ChIJBSrHCj490i0RXBAQSVo0mpc",
 walk:"ok. 20–25 min do wejścia",
-desc:"Nawigacja prowadzi do Pura Gunung Lebah. Przy świątyni kieruj się na wejście na Campuhan Ridge Walk."
+desc:"Nawigacja prowadzi do Pura Gunung Lebah. Stamtąd wejdź na Campuhan Ridge Walk."
 },
   
 {
@@ -738,7 +739,7 @@ document.getElementById("loading").innerHTML=
 function googleMaps(place){
 
   if(place.googleDestinationPlaceId){
-    return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(place.googleDestination || place.name)}&destination_place_id=${place.googleDestinationPlaceId}&travelmode=walking`;
+    return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(place.googleDestination)}&destination_place_id=${place.googleDestinationPlaceId}&travelmode=walking`;
   }
 
   if(place.googlePlaceId){
