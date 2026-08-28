@@ -356,13 +356,14 @@ desc:"Piękna świątynia Saraswati z charakterystycznymi stawami pełnymi lotos
 
 {
 id:"market",
-name:"Ubud Art Market · Jl. Raya Ubud 35",
+name:"Ubud Art Market",
 category:"🧺 Zakupy",
 emoji:"🧺",
 lat:-8.507093261276319,
 lon:115.26252800440726,
+googleDestination:"Jl. Raya Ubud No.35, Ubud, Gianyar, Bali 80571, Indonesia",
 walk:"ok. 10–15 min",
-desc:"Ubud Art Market · Jl. Raya Ubud No. 35, naprzeciwko Ubud Palace."
+desc:"Tradycyjny bazar z rękodziełem, sarongami i pamiątkami."
 },
   
 {
@@ -725,6 +726,10 @@ document.getElementById("loading").innerHTML=
 function googleMaps(place){
   if(place.googlePlaceId){
     return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(place.name)}&destination_place_id=${place.googlePlaceId}&travelmode=walking`;
+  }
+
+  if(place.googleDestination){
+    return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(place.googleDestination)}&travelmode=walking`;
   }
 
   return `https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lon}&travelmode=walking`;
