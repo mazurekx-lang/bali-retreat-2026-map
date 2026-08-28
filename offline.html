@@ -395,9 +395,10 @@ category:"🌿 Natura",
 emoji:"🌿",
 lat:-8.504350,
 lon:115.254924,
-googleDestination:"-8.5052,115.2522",
+googleDestination:"Warwick Ibah Luxury Villas & Spa",
+googleDestinationPlaceId:"ChIJ0cHUbj490i0RjK89h12B2LU",
 walk:"ok. 20–25 min do wejścia",
-desc:"Wejście na Campuhan Ridge Walk. Nawigacja prowadzi do mostu przy wejściu."
+desc:"Przy Ibah wybierz lewą drogę w dół. Doprowadzi Cię do mostku i wejścia na Campuhan Ridge Walk."
 },
 
 {
@@ -736,6 +737,11 @@ document.getElementById("loading").innerHTML=
 ===================================== */
 
 function googleMaps(place){
+
+  if(place.googleDestinationPlaceId){
+    return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(place.googleDestination || place.name)}&destination_place_id=${place.googleDestinationPlaceId}&travelmode=walking`;
+  }
+
   if(place.googlePlaceId){
     return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(place.name)}&destination_place_id=${place.googlePlaceId}&travelmode=walking`;
   }
